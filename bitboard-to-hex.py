@@ -19,13 +19,17 @@ if __name__ == '__main__':
                 continue
             index = 63
             number = 0
+            skipped = False
             for line in lines:
                 line = line.strip()
                 if len(line) != 8:
                     print(f"Skipping {path}: invalid line")
-                    continue
+                    skipped = True
+                    break
                 for c in line:
                     if c == '1':
                         number |= 1 << index
                     index -= 1
+            if skipped:
+                continue
             print(f"{path}: {format(number, '#018x')}")
